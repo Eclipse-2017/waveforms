@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Inmarsat1
-# Generated: Wed Jun 21 18:06:46 2017
+# Generated: Mon Aug 14 21:05:04 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -18,7 +18,6 @@ if __name__ == '__main__':
 
 from PyQt4 import Qt
 from datetime import datetime as dt; import string
-from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import gr
 from gnuradio import qtgui
@@ -149,7 +148,7 @@ class inmarsat1(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_0.enable_grid(True)
         self.qtgui_freq_sink_x_0.set_fft_average(0.2)
         self.qtgui_freq_sink_x_0.enable_axis_labels(True)
-        self.qtgui_freq_sink_x_0.enable_control_panel(False)
+        self.qtgui_freq_sink_x_0.enable_control_panel(True)
 
         if not True:
           self.qtgui_freq_sink_x_0.disable_legend()
@@ -189,13 +188,10 @@ class inmarsat1(gr.top_block, Qt.QWidget):
         self.osmosdr_source_0.set_antenna('', 0)
         self.osmosdr_source_0.set_bandwidth(0, 0)
 
-        self.blocks_file_sink_1 = blocks.file_sink(gr.sizeof_gr_complex*1, inmarsat_fp, False)
-        self.blocks_file_sink_1.set_unbuffered(False)
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.osmosdr_source_0, 0), (self.blocks_file_sink_1, 0))
         self.connect((self.osmosdr_source_0, 0), (self.qtgui_freq_sink_x_0, 0))
         self.connect((self.osmosdr_source_0, 0), (self.qtgui_waterfall_sink_x_0, 0))
 
@@ -259,7 +255,6 @@ class inmarsat1(gr.top_block, Qt.QWidget):
 
     def set_inmarsat_fp(self, inmarsat_fp):
         self.inmarsat_fp = inmarsat_fp
-        self.blocks_file_sink_1.open(self.inmarsat_fp)
 
 
 def argument_parser():

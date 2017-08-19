@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Apt Pds 1
-# Generated: Wed Jun 14 16:04:58 2017
+# Generated: Mon Aug 14 21:15:25 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -76,7 +76,7 @@ class apt_pds_1(gr.top_block, Qt.QWidget):
         self.sarsat_freq = sarsat_freq = 1544.5e6
         self.sarsat_fp = sarsat_fp = "/mnt/usbhdd/{:s}".format(sarsat_fn)
         self.apt_gain = apt_gain = 20
-        self.apt_freq = apt_freq = 137.62e6
+        self.apt_freq = apt_freq = 137.9125e6
         self.apt_fp = apt_fp = "/mnt/usbhdd/{:s}".format(apt_fn)
 
         ##################################################
