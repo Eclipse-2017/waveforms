@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Inmarsat1
-# Generated: Sat Aug 19 19:19:27 2017
+# Generated: Sat Aug 19 19:30:37 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -66,9 +66,9 @@ class inmarsat1(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.ts_str = ts_str = dt.strftime(dt.utcnow(), "%Y%m%d_%H%M%S.%f" )+'_UTC'
-        self.samp_rate = samp_rate = 1000000
+        self.samp_rate = samp_rate = 500000
         self.inmarsat_fn = inmarsat_fn = "{:s}_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate)/1000))
-        self.rx_gain = rx_gain = 20
+        self.rx_gain = rx_gain = 25
         self.rx_freq = rx_freq = 1540e6
         self.inmarsat_fp = inmarsat_fp = "/mnt/usbhdd/{:s}".format(inmarsat_fn)
 
