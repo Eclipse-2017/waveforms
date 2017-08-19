@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Inmarsat1
-# Generated: Sat Aug 19 19:37:48 2017
+# Generated: Sat Aug 19 19:52:44 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -71,7 +71,7 @@ class inmarsat1(gr.top_block, Qt.QWidget):
         self.decim = decim = 4
         self.inmarsat_fn = inmarsat_fn = "{:s}_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate/decim)/1000))
         self.rx_gain = rx_gain = 25
-        self.rx_freq = rx_freq = 1539.95e6
+        self.rx_freq = rx_freq = 1539.955e6
         self.inmarsat_fp = inmarsat_fp = "/mnt/usbhdd/{:s}".format(inmarsat_fn)
 
         ##################################################
@@ -108,7 +108,7 @@ class inmarsat1(gr.top_block, Qt.QWidget):
         	1024, #size
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
         	0, #fc
-        	samp_rate, #bw
+        	samp_rate/decim, #bw
         	"INMARSAT", #name
         	1 #number of inputs
         )
@@ -192,7 +192,7 @@ class inmarsat1(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         Qt.QMetaObject.invokeMethod(self._samp_rate_line_edit, "setText", Qt.Q_ARG("QString", eng_notation.num_to_str(self.samp_rate)))
-        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
+        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate/self.decim)
         self.osmosdr_source_0.set_sample_rate(self.samp_rate)
         self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
@@ -201,6 +201,7 @@ class inmarsat1(gr.top_block, Qt.QWidget):
 
     def set_decim(self, decim):
         self.decim = decim
+        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate/self.decim)
         self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_inmarsat_fn(self):

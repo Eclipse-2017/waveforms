@@ -170,7 +170,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>1539.95e6</value>
+      <value>1539.955e6</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1838,7 +1838,7 @@
     </param>
     <param>
       <key>bw</key>
-      <value>samp_rate</value>
+      <value>samp_rate/decim</value>
     </param>
     <param>
       <key>alias</key>
