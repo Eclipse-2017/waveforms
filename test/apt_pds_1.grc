@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<?grc format='1' created='3.7.12'?>
+<?grc format='1' created='3.7.11'?>
 <flow_graph>
   <timestamp>Tue Apr  4 20:41:38 2017</timestamp>
   <block>
@@ -89,33 +89,6 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(336, 144)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>apt_filename_0</value>
-    </param>
-    <param>
-      <key>value</key>
-      <value>"{:s}_APT_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate)/1000))</value>
-    </param>
-  </block>
-  <block>
-    <key>variable</key>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
       <value>1</value>
     </param>
     <param>
@@ -132,7 +105,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>"{:s}_APT_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate)/1000))</value>
+      <value>"{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate)/1000))</value>
     </param>
   </block>
   <block>
@@ -178,7 +151,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(184, 348)</value>
+      <value>(312, 76)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -217,7 +190,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(64, 348)</value>
+      <value>(464, 76)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -303,7 +276,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>"{:s}_SARSAT_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate)/1000))</value>
+      <value>"{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate)/1000))</value>
     </param>
   </block>
   <block>
@@ -388,7 +361,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(312, 76)</value>
+      <value>(456, 12)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -423,7 +396,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1008, 12)</value>
+      <value>(912, 12)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -592,7 +565,7 @@
     </param>
   </block>
   <block>
-    <key>dc_blocker_xx</key>
+    <key>parameter</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -602,16 +575,12 @@
       <value></value>
     </param>
     <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
       <key>_enabled</key>
-      <value>2</value>
+      <value>True</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(376, 164)</value>
+      <value>(704, 16)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -619,27 +588,23 @@
     </param>
     <param>
       <key>id</key>
-      <value>dc_blocker_xx_0</value>
+      <value>gs_name</value>
     </param>
     <param>
-      <key>length</key>
-      <value>256</value>
+      <key>label</key>
+      <value></value>
     </param>
     <param>
-      <key>long_form</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
+      <key>short_id</key>
+      <value>g</value>
     </param>
     <param>
       <key>type</key>
-      <value>cc</value>
+      <value>string</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>'GS1'</value>
     </param>
   </block>
   <block>
@@ -658,7 +623,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(584, 12)</value>
+      <value>(1096, 12)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2936,10 +2901,6 @@
       <value>s</value>
     </param>
     <param>
-      <key>hide</key>
-      <value>none</value>
-    </param>
-    <param>
       <key>type</key>
       <value>string</value>
     </param>
@@ -4288,12 +4249,6 @@
     </param>
   </block>
   <connection>
-    <source_block_id>dc_blocker_xx_0</source_block_id>
-    <sink_block_id>qtgui_freq_sink_x_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>osmosdr_source_0</source_block_id>
     <sink_block_id>blocks_file_sink_1</sink_block_id>
     <source_key>0</source_key>
@@ -4301,7 +4256,7 @@
   </connection>
   <connection>
     <source_block_id>osmosdr_source_0</source_block_id>
-    <sink_block_id>dc_blocker_xx_0</sink_block_id>
+    <sink_block_id>qtgui_freq_sink_x_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>

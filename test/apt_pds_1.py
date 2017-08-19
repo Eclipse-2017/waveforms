@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Apt Pds 1
-# Generated: Mon Aug 14 21:15:25 2017
+# Generated: Sat Aug 19 19:15:59 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -20,7 +20,6 @@ from PyQt4 import Qt
 from datetime import datetime as dt; import string
 from gnuradio import blocks
 from gnuradio import eng_notation
-from gnuradio import filter
 from gnuradio import gr
 from gnuradio import qtgui
 from gnuradio import uhd
@@ -36,7 +35,7 @@ from gnuradio import qtgui
 
 class apt_pds_1(gr.top_block, Qt.QWidget):
 
-    def __init__(self, sat_name='NOAA15'):
+    def __init__(self, gs_name='GS1', sat_name='NOAA15'):
         gr.top_block.__init__(self, "Apt Pds 1")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Apt Pds 1")
@@ -63,6 +62,7 @@ class apt_pds_1(gr.top_block, Qt.QWidget):
         ##################################################
         # Parameters
         ##################################################
+        self.gs_name = gs_name
         self.sat_name = sat_name
 
         ##################################################
@@ -70,8 +70,8 @@ class apt_pds_1(gr.top_block, Qt.QWidget):
         ##################################################
         self.ts_str = ts_str = dt.strftime(dt.utcnow(), "%Y%m%d_%H%M%S.%f" )+'_UTC'
         self.samp_rate = samp_rate = 250000
-        self.sarsat_fn = sarsat_fn = "{:s}_SARSAT_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate)/1000))
-        self.apt_fn = apt_fn = "{:s}_APT_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate)/1000))
+        self.sarsat_fn = sarsat_fn = "{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate)/1000))
+        self.apt_fn = apt_fn = "{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate)/1000))
         self.sarsat_gain = sarsat_gain = 20
         self.sarsat_freq = sarsat_freq = 1544.5e6
         self.sarsat_fp = sarsat_fp = "/mnt/usbhdd/{:s}".format(sarsat_fn)
@@ -247,21 +247,29 @@ class apt_pds_1(gr.top_block, Qt.QWidget):
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
+    def get_gs_name(self):
+        return self.gs_name
+
+    def set_gs_name(self, gs_name):
+        self.gs_name = gs_name
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+
     def get_sat_name(self):
         return self.sat_name
 
     def set_sat_name(self, sat_name):
         self.sat_name = sat_name
-        self.set_sarsat_fn("{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
-        self.set_apt_fn("{:s}_APT_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
 
     def get_ts_str(self):
         return self.ts_str
 
     def set_ts_str(self, ts_str):
         self.ts_str = ts_str
-        self.set_sarsat_fn("{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
-        self.set_apt_fn("{:s}_APT_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -270,11 +278,11 @@ class apt_pds_1(gr.top_block, Qt.QWidget):
         self.samp_rate = samp_rate
         Qt.QMetaObject.invokeMethod(self._samp_rate_line_edit, "setText", Qt.Q_ARG("QString", eng_notation.num_to_str(self.samp_rate)))
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
-        self.set_sarsat_fn("{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
         self.qtgui_freq_sink_x_0_0.set_frequency_range(0, self.samp_rate)
         self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
         self.osmosdr_source_0.set_sample_rate(self.samp_rate)
-        self.set_apt_fn("{:s}_APT_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
 
     def get_sarsat_fn(self):
         return self.sarsat_fn
@@ -341,6 +349,9 @@ class apt_pds_1(gr.top_block, Qt.QWidget):
 def argument_parser():
     parser = OptionParser(usage="%prog: [options]", option_class=eng_option)
     parser.add_option(
+        "-g", "--gs-name", dest="gs_name", type="string", default='GS1',
+        help="Set gs_name [default=%default]")
+    parser.add_option(
         "-s", "--sat-name", dest="sat_name", type="string", default='NOAA15',
         help="Set sat_name [default=%default]")
     return parser
@@ -356,7 +367,7 @@ def main(top_block_cls=apt_pds_1, options=None):
         Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
 
-    tb = top_block_cls(sat_name=options.sat_name)
+    tb = top_block_cls(gs_name=options.gs_name, sat_name=options.sat_name)
     tb.start()
     tb.show()
 
