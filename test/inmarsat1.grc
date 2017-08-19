@@ -132,7 +132,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>"{:s}_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate/decim)/1000))</value>
+      <value>"{:s}_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate)/1000))</value>
     </param>
   </block>
   <block>
@@ -170,7 +170,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>1539.955e6</value>
+      <value>1539.96e6</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -248,7 +248,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>1e6</value>
+      <value>1e6/decim</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1838,7 +1838,7 @@
     </param>
     <param>
       <key>bw</key>
-      <value>samp_rate/decim</value>
+      <value>samp_rate</value>
     </param>
     <param>
       <key>alias</key>
@@ -2364,7 +2364,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>2</value>
     </param>
     <param>
       <key>fbw</key>

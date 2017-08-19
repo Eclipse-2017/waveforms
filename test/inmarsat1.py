@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Inmarsat1
-# Generated: Sat Aug 19 19:52:44 2017
+# Generated: Sat Aug 19 19:56:27 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -66,12 +66,12 @@ class inmarsat1(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.ts_str = ts_str = dt.strftime(dt.utcnow(), "%Y%m%d_%H%M%S.%f" )+'_UTC'
-        self.samp_rate = samp_rate = 1e6
         self.decim = decim = 4
-        self.inmarsat_fn = inmarsat_fn = "{:s}_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate/decim)/1000))
+        self.ts_str = ts_str = dt.strftime(dt.utcnow(), "%Y%m%d_%H%M%S.%f" )+'_UTC'
+        self.samp_rate = samp_rate = 1e6/decim
+        self.inmarsat_fn = inmarsat_fn = "{:s}_{:s}_{:s}k.fc32".format(sat_name, ts_str, str(int(samp_rate)/1000))
         self.rx_gain = rx_gain = 25
-        self.rx_freq = rx_freq = 1539.955e6
+        self.rx_freq = rx_freq = 1539.96e6
         self.inmarsat_fp = inmarsat_fp = "/mnt/usbhdd/{:s}".format(inmarsat_fn)
 
         ##################################################
@@ -98,17 +98,11 @@ class inmarsat1(gr.top_block, Qt.QWidget):
         self._rx_freq_line_edit.returnPressed.connect(
         	lambda: self.set_rx_freq(eng_notation.str_to_num(str(self._rx_freq_line_edit.text().toAscii()))))
         self.top_layout.addWidget(self._rx_freq_tool_bar)
-        self.rational_resampler_xxx_0 = filter.rational_resampler_ccc(
-                interpolation=1,
-                decimation=decim,
-                taps=None,
-                fractional_bw=None,
-        )
         self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
         	1024, #size
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
         	0, #fc
-        	samp_rate/decim, #bw
+        	samp_rate, #bw
         	"INMARSAT", #name
         	1 #number of inputs
         )
@@ -164,8 +158,7 @@ class inmarsat1(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.osmosdr_source_0, 0), (self.rational_resampler_xxx_0, 0))
-        self.connect((self.rational_resampler_xxx_0, 0), (self.qtgui_freq_sink_x_0, 0))
+        self.connect((self.osmosdr_source_0, 0), (self.qtgui_freq_sink_x_0, 0))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "inmarsat1")
@@ -177,14 +170,21 @@ class inmarsat1(gr.top_block, Qt.QWidget):
 
     def set_sat_name(self, sat_name):
         self.sat_name = sat_name
-        self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+
+    def get_decim(self):
+        return self.decim
+
+    def set_decim(self, decim):
+        self.decim = decim
+        self.set_samp_rate(1e6/self.decim)
 
     def get_ts_str(self):
         return self.ts_str
 
     def set_ts_str(self, ts_str):
         self.ts_str = ts_str
-        self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -192,17 +192,9 @@ class inmarsat1(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         Qt.QMetaObject.invokeMethod(self._samp_rate_line_edit, "setText", Qt.Q_ARG("QString", eng_notation.num_to_str(self.samp_rate)))
-        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate/self.decim)
+        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
         self.osmosdr_source_0.set_sample_rate(self.samp_rate)
-        self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
-
-    def get_decim(self):
-        return self.decim
-
-    def set_decim(self, decim):
-        self.decim = decim
-        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate/self.decim)
-        self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_inmarsat_fn("{:s}_{:s}_{:s}k.fc32".format(self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
 
     def get_inmarsat_fn(self):
         return self.inmarsat_fn
