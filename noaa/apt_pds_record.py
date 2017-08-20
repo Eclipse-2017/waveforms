@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Apt Pds Record
-# Generated: Sat Aug 19 20:33:46 2017
+# Generated: Sat Aug 19 20:40:43 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -75,10 +75,10 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
         ##################################################
         self.ts_str = ts_str = dt.strftime(dt.utcnow(), "%Y%m%d_%H%M%S.%f" )+'_UTC'
         self.samp_rate = samp_rate = 1000000
-        self.sarsat_fn = sarsat_fn = "{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate)/1000))
-        self.apt_fn = apt_fn = "{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate)/1000))
-        self.sarsat_fp = sarsat_fp = "/mnt/usbhdd/{:s}".format(sarsat_fn)
         self.decim = decim = 4
+        self.sarsat_fn = sarsat_fn = "{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate/decim)/1000))
+        self.apt_fn = apt_fn = "{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate/decim)/1000))
+        self.sarsat_fp = sarsat_fp = "/mnt/usbhdd/{:s}".format(sarsat_fn)
         self.apt_fp = apt_fp = "/mnt/usbhdd/{:s}".format(apt_fn)
 
         ##################################################
@@ -242,8 +242,8 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
 
     def set_gs_name(self, gs_name):
         self.gs_name = gs_name
-        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
-        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_sarsat_freq(self):
         return self.sarsat_freq
@@ -264,16 +264,16 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
 
     def set_sat_name(self, sat_name):
         self.sat_name = sat_name
-        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
-        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_ts_str(self):
         return self.ts_str
 
     def set_ts_str(self, ts_str):
         self.ts_str = ts_str
-        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
-        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -282,11 +282,22 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
         self.samp_rate = samp_rate
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate/self.decim)
         self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.apt_freq, (self.samp_rate/self.decim)/2), 0)
-        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
         self.qtgui_freq_sink_x_0_0.set_frequency_range(0, self.samp_rate)
         self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
         self.osmosdr_source_0.set_sample_rate(self.samp_rate*self.decim)
-        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate)/1000)))
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+
+    def get_decim(self):
+        return self.decim
+
+    def set_decim(self, decim):
+        self.decim = decim
+        self.uhd_usrp_source_0.set_samp_rate(self.samp_rate/self.decim)
+        self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.apt_freq, (self.samp_rate/self.decim)/2), 0)
+        self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.osmosdr_source_0.set_sample_rate(self.samp_rate*self.decim)
+        self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_sarsat_fn(self):
         return self.sarsat_fn
@@ -308,15 +319,6 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
     def set_sarsat_fp(self, sarsat_fp):
         self.sarsat_fp = sarsat_fp
         self.blocks_file_sink_1.open(self.sarsat_fp)
-
-    def get_decim(self):
-        return self.decim
-
-    def set_decim(self, decim):
-        self.decim = decim
-        self.uhd_usrp_source_0.set_samp_rate(self.samp_rate/self.decim)
-        self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.apt_freq, (self.samp_rate/self.decim)/2), 0)
-        self.osmosdr_source_0.set_sample_rate(self.samp_rate*self.decim)
 
     def get_apt_fp(self):
         return self.apt_fp
