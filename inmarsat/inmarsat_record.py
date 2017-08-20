@@ -17,6 +17,7 @@ from optparse import OptionParser
 import osmosdr
 import time
 import sys
+import datetime as dt
 
 
 class inmarsat_record(gr.top_block):
@@ -162,10 +163,10 @@ def main(top_block_cls=inmarsat_record, options=None):
 
     tb = top_block_cls(sat_name=options.sat_name, gs_name=options.gs_name, rx_gain=options.rx_gain, rx_freq=options.rx_freq)
     tb.start()
-    index = 0
-    while index < 60:
-        index += 1
-        time.sleep(1)
+    start_time = dt.datetime.utcnow()
+    delta = 0
+    while delta < 60.0:
+        delta = (dt.datetime.utcnow() - start_time).total_seconds()
     sys.exit()
     tb.wait()
 
