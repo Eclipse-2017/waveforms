@@ -166,7 +166,6 @@ def main(top_block_cls=inmarsat_record, options=None):
     while index < 60:
         index += 1
         time.sleep(1)
-    tb.stop()
     sys.exit()
     tb.wait()
 
