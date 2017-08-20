@@ -164,8 +164,9 @@ def main(top_block_cls=inmarsat_record, options=None):
     tb.start()
     start_time = dt.utcnow()
     delta = 0
-    while delta < 60.0:
+    while delta < 61.0:
         delta = (dt.utcnow() - start_time).total_seconds()
+        time.sleep(0.1)
     sys.exit()
     tb.wait()
 
