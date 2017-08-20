@@ -161,6 +161,12 @@ def main(top_block_cls=inmarsat_record, options=None):
 
     tb = top_block_cls(sat_name=options.sat_name, gs_name=options.gs_name, rx_gain=options.rx_gain, rx_freq=options.rx_freq)
     tb.start()
+    index = 0
+    while index < 60:
+        index += 1
+        time.sleep(1)
+    tb.stop()
+    sys.exit()
     tb.wait()
 
 
