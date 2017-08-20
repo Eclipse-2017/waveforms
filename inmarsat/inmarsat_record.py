@@ -16,6 +16,7 @@ from gnuradio.filter import firdes
 from optparse import OptionParser
 import osmosdr
 import time
+import sys
 
 
 class inmarsat_record(gr.top_block):
