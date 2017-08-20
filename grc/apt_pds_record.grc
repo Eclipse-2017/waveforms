@@ -1932,7 +1932,7 @@
     </param>
     <param>
       <key>sample_rate</key>
-      <value>samp_rate*decim</value>
+      <value>samp_rate</value>
     </param>
     <param>
       <key>sync</key>
@@ -2254,7 +2254,7 @@
     </param>
     <param>
       <key>bw</key>
-      <value>samp_rate</value>
+      <value>samp_rate/decim</value>
     </param>
     <param>
       <key>alias</key>

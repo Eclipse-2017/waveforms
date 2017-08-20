@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Apt Pds Record
-# Generated: Sat Aug 19 20:40:43 2017
+# Generated: Sun Aug 20 02:14:35 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -108,7 +108,7 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
         	1024, #size
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
         	0, #fc
-        	samp_rate, #bw
+        	samp_rate/decim, #bw
         	"NOAA APT", #name
         	1 #number of inputs
         )
@@ -191,7 +191,7 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_freq_sink_x_0_win)
         self.osmosdr_source_0 = osmosdr.source( args="numchan=" + str(1) + " " + 'rtl=SARSAT' )
-        self.osmosdr_source_0.set_sample_rate(samp_rate*decim)
+        self.osmosdr_source_0.set_sample_rate(samp_rate)
         self.osmosdr_source_0.set_center_freq(sarsat_freq, 0)
         self.osmosdr_source_0.set_freq_corr(0, 0)
         self.osmosdr_source_0.set_dc_offset_mode(2, 0)
@@ -283,9 +283,9 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate/self.decim)
         self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.apt_freq, (self.samp_rate/self.decim)/2), 0)
         self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
-        self.qtgui_freq_sink_x_0_0.set_frequency_range(0, self.samp_rate)
+        self.qtgui_freq_sink_x_0_0.set_frequency_range(0, self.samp_rate/self.decim)
         self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
-        self.osmosdr_source_0.set_sample_rate(self.samp_rate*self.decim)
+        self.osmosdr_source_0.set_sample_rate(self.samp_rate)
         self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_decim(self):
@@ -296,7 +296,7 @@ class apt_pds_record(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate/self.decim)
         self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.apt_freq, (self.samp_rate/self.decim)/2), 0)
         self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
-        self.osmosdr_source_0.set_sample_rate(self.samp_rate*self.decim)
+        self.qtgui_freq_sink_x_0_0.set_frequency_range(0, self.samp_rate/self.decim)
         self.set_apt_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_sarsat_fn(self):
