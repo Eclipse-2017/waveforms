@@ -105,7 +105,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>"{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate/decim)/1000))</value>
+      <value>"{:s}_{:s}_ADCS_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate/decim)/1000))</value>
     </param>
   </block>
   <block>

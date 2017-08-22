@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Adcs Pds Record Gui
-# Generated: Tue Aug 22 16:47:16 2017
+# Generated: Tue Aug 22 16:50:38 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -77,7 +77,7 @@ class adcs_pds_record_gui(gr.top_block, Qt.QWidget):
         self.samp_rate = samp_rate = 1000000
         self.decim = decim = 4
         self.sarsat_fn = sarsat_fn = "{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate/decim)/1000))
-        self.adcs_fn = adcs_fn = "{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate/decim)/1000))
+        self.adcs_fn = adcs_fn = "{:s}_{:s}_ADCS_{:s}_{:s}k.fc32".format(gs_name, sat_name, ts_str, str(int(samp_rate/decim)/1000))
         self.sarsat_fp = sarsat_fp = "/mnt/usbhdd/{:s}".format(sarsat_fn)
         self.adcs_fp = adcs_fp = "/mnt/usbhdd/{:s}".format(adcs_fn)
 
@@ -243,7 +243,7 @@ class adcs_pds_record_gui(gr.top_block, Qt.QWidget):
     def set_gs_name(self, gs_name):
         self.gs_name = gs_name
         self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
-        self.set_adcs_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_adcs_fn("{:s}_{:s}_ADCS_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_sarsat_freq(self):
         return self.sarsat_freq
@@ -265,7 +265,7 @@ class adcs_pds_record_gui(gr.top_block, Qt.QWidget):
     def set_sat_name(self, sat_name):
         self.sat_name = sat_name
         self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
-        self.set_adcs_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_adcs_fn("{:s}_{:s}_ADCS_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_ts_str(self):
         return self.ts_str
@@ -273,7 +273,7 @@ class adcs_pds_record_gui(gr.top_block, Qt.QWidget):
     def set_ts_str(self, ts_str):
         self.ts_str = ts_str
         self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
-        self.set_adcs_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_adcs_fn("{:s}_{:s}_ADCS_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_samp_rate(self):
         return self.samp_rate
@@ -286,7 +286,7 @@ class adcs_pds_record_gui(gr.top_block, Qt.QWidget):
         self.qtgui_freq_sink_x_0_0.set_frequency_range(0, self.samp_rate/self.decim)
         self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
         self.osmosdr_source_0.set_sample_rate(self.samp_rate)
-        self.set_adcs_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_adcs_fn("{:s}_{:s}_ADCS_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_decim(self):
         return self.decim
@@ -297,7 +297,7 @@ class adcs_pds_record_gui(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0.set_center_freq(uhd.tune_request(self.adcs_freq, (self.samp_rate/self.decim)/2), 0)
         self.set_sarsat_fn("{:s}_{:s}_SARSAT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
         self.qtgui_freq_sink_x_0_0.set_frequency_range(0, self.samp_rate/self.decim)
-        self.set_adcs_fn("{:s}_{:s}_APT_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
+        self.set_adcs_fn("{:s}_{:s}_ADCS_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.ts_str, str(int(self.samp_rate/self.decim)/1000)))
 
     def get_sarsat_fn(self):
         return self.sarsat_fn
