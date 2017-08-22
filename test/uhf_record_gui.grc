@@ -143,7 +143,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>435.85e6</value>
+      <value>freq</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -151,7 +151,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(288, 108)</value>
+      <value>(192, 116)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -182,7 +182,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>30</value>
+      <value>gain</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -291,7 +291,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(608, 92)</value>
+      <value>(776, 140)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -334,7 +334,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(600, 396)</value>
+      <value>(576, 356)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -355,6 +355,92 @@
     <param>
       <key>vlen</key>
       <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>parameter</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(776, 36)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>freq</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value></value>
+    </param>
+    <param>
+      <key>short_id</key>
+      <value></value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>eng_float</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>435.85e6</value>
+    </param>
+  </block>
+  <block>
+    <key>parameter</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(672, 36)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>gain</value>
+    </param>
+    <param>
+      <key>label</key>
+      <value></value>
+    </param>
+    <param>
+      <key>short_id</key>
+      <value></value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>eng_float</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>30</value>
     </param>
   </block>
   <block>

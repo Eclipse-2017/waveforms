@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Uhf Record Gui
-# Generated: Tue Aug 22 16:28:55 2017
+# Generated: Tue Aug 22 16:32:28 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -34,7 +34,7 @@ from gnuradio import qtgui
 
 class uhf_record_gui(gr.top_block, Qt.QWidget):
 
-    def __init__(self, gs_name='GS1', sat_name='NOAA15', sig_name='SIGNAL'):
+    def __init__(self, gs_name='GS1', sat_name='NOAA15', sig_name='SIGNAL', freq=435.85e6, gain=30):
         gr.top_block.__init__(self, "Uhf Record Gui")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Uhf Record Gui")
@@ -64,6 +64,8 @@ class uhf_record_gui(gr.top_block, Qt.QWidget):
         self.gs_name = gs_name
         self.sat_name = sat_name
         self.sig_name = sig_name
+        self.freq = freq
+        self.gain = gain
 
         ##################################################
         # Variables
@@ -71,8 +73,8 @@ class uhf_record_gui(gr.top_block, Qt.QWidget):
         self.ts_str = ts_str = dt.strftime(dt.utcnow(), "%Y%m%d_%H%M%S.%f" )+'_UTC'
         self.samp_rate = samp_rate = 250e3
         self.apt_fn = apt_fn = "{:s}_{:s}_{:s}_{:s}_{:s}k.fc32".format(gs_name, sat_name, sig_name, ts_str, str(int(samp_rate)/1000))
-        self.apt_gain = apt_gain = 30
-        self.apt_freq = apt_freq = 435.85e6
+        self.apt_gain = apt_gain = gain
+        self.apt_freq = apt_freq = freq
         self.apt_fp = apt_fp = "/mnt/usbhdd/{:s}".format(apt_fn)
 
         ##################################################
@@ -227,6 +229,20 @@ class uhf_record_gui(gr.top_block, Qt.QWidget):
         self.sig_name = sig_name
         self.set_apt_fn("{:s}_{:s}_{:s}_{:s}_{:s}k.fc32".format(self.gs_name, self.sat_name, self.sig_name, self.ts_str, str(int(self.samp_rate)/1000)))
 
+    def get_freq(self):
+        return self.freq
+
+    def set_freq(self, freq):
+        self.freq = freq
+        self.set_apt_freq(self.freq)
+
+    def get_gain(self):
+        return self.gain
+
+    def set_gain(self, gain):
+        self.gain = gain
+        self.set_apt_gain(self.gain)
+
     def get_ts_str(self):
         return self.ts_str
 
@@ -289,6 +305,12 @@ def argument_parser():
     parser.add_option(
         "", "--sig-name", dest="sig_name", type="string", default='SIGNAL',
         help="Set sig_name [default=%default]")
+    parser.add_option(
+        "", "--freq", dest="freq", type="eng_float", default=eng_notation.num_to_str(435.85e6),
+        help="Set freq [default=%default]")
+    parser.add_option(
+        "", "--gain", dest="gain", type="eng_float", default=eng_notation.num_to_str(30),
+        help="Set gain [default=%default]")
     return parser
 
 
@@ -302,7 +324,7 @@ def main(top_block_cls=uhf_record_gui, options=None):
         Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
 
-    tb = top_block_cls(gs_name=options.gs_name, sat_name=options.sat_name, sig_name=options.sig_name)
+    tb = top_block_cls(gs_name=options.gs_name, sat_name=options.sat_name, sig_name=options.sig_name, freq=options.freq, gain=options.gain)
     tb.start()
     tb.show()
 
